@@ -2,6 +2,9 @@ package cn.wares.commodity.entity;
 
 import java.util.Date;
 
+/**
+ * 登陆信息表
+ */
 public class LoginInfo {
     private Integer id;
 

@@ -1,5 +1,9 @@
 package cn.wares.commodity.entity;
 
+
+/**
+ * 用户地址表
+ */
 public class userAddress {
     private Integer id;
 

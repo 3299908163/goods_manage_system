@@ -1,15 +1,18 @@
 package cn.wares.commodity.entity;
 
+/**
+ * 订单详解表
+ */
 public class Detail {
     private Integer id;
 
-    private Integer orderId;
+    private Integer orderId;    //订单id
 
-    private Integer goodsId;
+    private Integer goodsId;    //商品id
 
-    private Integer number;
+    private Integer number;     //商品数量
 
-    private Double price;
+    private Double price;       //商品价格
 
     public Detail(Integer id, Integer orderId, Integer goodsId, Integer number, Double price) {
         this.id = id;

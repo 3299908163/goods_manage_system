@@ -2,6 +2,9 @@ package cn.wares.commodity.entity;
 
 import java.util.Date;
 
+/**
+ * 注册信息表
+ */
 public class RegisterInfo {
     private Integer id;
 

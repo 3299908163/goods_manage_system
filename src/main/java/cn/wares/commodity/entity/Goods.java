@@ -1,5 +1,8 @@
 package cn.wares.commodity.entity;
 
+/**
+ * 商品表
+ */
 public class Goods {
     private Integer id;
 

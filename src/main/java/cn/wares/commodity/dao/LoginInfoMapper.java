@@ -2,6 +2,7 @@ package cn.wares.commodity.dao;
 
 import cn.wares.commodity.entity.LoginInfo;
 
+
 public interface LoginInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

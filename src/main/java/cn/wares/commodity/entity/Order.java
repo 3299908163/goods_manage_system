@@ -2,6 +2,9 @@ package cn.wares.commodity.entity;
 
 import java.util.Date;
 
+/**
+ * 订单表
+ */
 public class Order {
     private Integer id;
 

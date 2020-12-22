@@ -1,7 +1,11 @@
 package cn.wares.commodity.entity;
 
 /**
+<<<<<<< HEAD
  * 订单详解表
+=======
+ * 订单详解表1
+>>>>>>> 9b24adf75583691c35584661e227479e8b75b487
  */
 public class Detail {
     private Integer id;

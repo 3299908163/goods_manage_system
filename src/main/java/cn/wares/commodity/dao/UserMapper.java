@@ -11,8 +11,8 @@ public interface UserMapper {
     int insertSelective(User record);
     //根据主键查询信息
     User selectByPrimaryKey(Integer id);
-    //根据主键有选择的修改信息
+    //根据主键有选择的查询信息
     int updateByPrimaryKeySelective(User record);
-    //根据主键修改信息
+    //根据主键查询信息
     int updateByPrimaryKey(User record);
 }

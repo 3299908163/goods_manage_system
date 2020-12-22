@@ -1,42 +1,34 @@
 package cn.wares.commodity.entity;
 
-import java.util.Date;
-
+/**
+ * 用户表
+ */
 public class User {
     private Integer id;
 
-    private String username;
+    private String userName;
 
-    private String password;
+    private Integer userSex;
 
-    private Integer sex;
-
-    private Date entryDate;
-
-    private Date leaveDate;
-
-    private Integer age;
+    private String userIdentity;
 
     private String phone;
 
-    private String email;
+    private String password;
 
-    private Integer roleid;
+    private Integer roleId;
 
-    private Integer userstate;
+    private Integer isDelete;
 
-    public User(Integer id, String username, String password, Integer sex, Date entryDate, Date leaveDate, Integer age, String phone, String email, Integer roleid, Integer userstate) {
+    public User(Integer id, String userName, Integer userSex, String userIdentity, String phone, String password, Integer roleId, Integer isDelete) {
         this.id = id;
-        this.username = username;
-        this.password = password;
-        this.sex = sex;
-        this.entryDate = entryDate;
-        this.leaveDate = leaveDate;
-        this.age = age;
+        this.userName = userName;
+        this.userSex = userSex;
+        this.userIdentity = userIdentity;
         this.phone = phone;
-        this.email = email;
-        this.roleid = roleid;
-        this.userstate = userstate;
+        this.password = password;
+        this.roleId = roleId;
+        this.isDelete = isDelete;
     }
 
     public User() {
@@ -51,52 +43,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getUserSex() {
+        return userSex;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
     }
 
-    public Integer getSex() {
-        return sex;
+    public String getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
-    public Date getEntryDate() {
-        return entryDate;
-    }
-
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
-    }
-
-    public Date getLeaveDate() {
-        return leaveDate;
-    }
-
-    public void setLeaveDate(Date leaveDate) {
-        this.leaveDate = leaveDate;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUserIdentity(String userIdentity) {
+        this.userIdentity = userIdentity == null ? null : userIdentity.trim();
     }
 
     public String getPhone() {
@@ -107,27 +75,27 @@ public class User {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getUserstate() {
-        return userstate;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setUserstate(Integer userstate) {
-        this.userstate = userstate;
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

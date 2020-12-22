@@ -4,20 +4,17 @@
   <resultMap id="BaseResultMap" type="cn.wares.commodity.entity.User">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="sex" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="entry_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="leave_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_sex" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_identity" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="roleid" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="userstate" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_delete" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, password, sex, entry_date, leave_date, age, phone, email, roleid, userstate
+    id, user_name, user_sex, user_identity, phone, password, role_id, is_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,14 +27,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.wares.commodity.entity.User">
-    insert into user (id, username, password, 
-      sex, entry_date, leave_date, 
-      age, phone, email, 
-      roleid, userstate)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{entryDate,jdbcType=TIMESTAMP}, #{leaveDate,jdbcType=TIMESTAMP}, 
-      #{age,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{roleid,jdbcType=INTEGER}, #{userstate,jdbcType=INTEGER})
+    insert into user (id, user_name, user_sex, 
+      user_identity, phone, password, 
+      role_id, is_delete)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, 
+      #{userIdentity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{roleId,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.wares.commodity.entity.User">
     insert into user
@@ -45,121 +40,91 @@
       <if test="id != null">
         id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="userName != null">
+        user_name,
       </if>
-      <if test="password != null">
-        password,
+      <if test="userSex != null">
+        user_sex,
       </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="entryDate != null">
-        entry_date,
-      </if>
-      <if test="leaveDate != null">
-        leave_date,
-      </if>
-      <if test="age != null">
-        age,
+      <if test="userIdentity != null">
+        user_identity,
       </if>
       <if test="phone != null">
         phone,
       </if>
-      <if test="email != null">
-        email,
+      <if test="password != null">
+        password,
       </if>
-      <if test="roleid != null">
-        roleid,
+      <if test="roleId != null">
+        role_id,
       </if>
-      <if test="userstate != null">
-        userstate,
+      <if test="isDelete != null">
+        is_delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
       </if>
-      <if test="sex != null">
-        #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="entryDate != null">
-        #{entryDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="leaveDate != null">
-        #{leaveDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
+      <if test="userIdentity != null">
+        #{userIdentity,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
-      <if test="roleid != null">
-        #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="userstate != null">
-        #{userstate,jdbcType=INTEGER},
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.wares.commodity.entity.User">
     update user
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=INTEGER},
       </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="entryDate != null">
-        entry_date = #{entryDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="leaveDate != null">
-        leave_date = #{leaveDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
+      <if test="userIdentity != null">
+        user_identity = #{userIdentity,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="roleid != null">
-        roleid = #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="userstate != null">
-        userstate = #{userstate,jdbcType=INTEGER},
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.wares.commodity.entity.User">
     update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      entry_date = #{entryDate,jdbcType=TIMESTAMP},
-      leave_date = #{leaveDate,jdbcType=TIMESTAMP},
-      age = #{age,jdbcType=INTEGER},
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_identity = #{userIdentity,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      roleid = #{roleid,jdbcType=INTEGER},
-      userstate = #{userstate,jdbcType=INTEGER}
+      password = #{password,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,7 +1,7 @@
 package cn.wares.commodity.entity;
 
 /**
- * 订单详解表
+ * 订单详解表1
  */
 public class Detail {
     private Integer id;

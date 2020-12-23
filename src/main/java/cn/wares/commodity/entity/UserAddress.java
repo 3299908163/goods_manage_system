@@ -1,21 +1,20 @@
 package cn.wares.commodity.entity;
 
-import java.util.Date;
 
 /**
- * 订单表
+ * 配送表
  */
-public class Order {
+public class UserAddress {
     /** 主键 */
     private Integer id;
     /** 用户id */
     private Integer userId;
-    /** 用户地址 */
-    private String userAddress;
-    /** 总消费 */
-    private Double cost;
-    /** 创建时间 */
-    private Date createtime;
+    /** 地址 */
+    private String address;
+    /** 是否默认地址（1：是 0：否） */
+    private Integer isdefault;
+    /** 备注 */
+    private String remark;
 
     public void setId(Integer id) {
         this.id = id;
@@ -33,28 +32,28 @@ public class Order {
         return this.userId;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getUserAddress() {
-        return this.userAddress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setCost(Double cost) {
-        this.cost = cost;
+    public void setIsdefault(Integer isdefault) {
+        this.isdefault = isdefault;
     }
 
-    public Double getCost() {
-        return this.cost;
+    public Integer getIsdefault() {
+        return this.isdefault;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public Date getCreatetime() {
-        return this.createtime;
+    public String getRemark() {
+        return this.remark;
     }
 
 
@@ -62,7 +61,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) {return false;}
-        Order that = (Order) o;
+        UserAddress that = (UserAddress) o;
         return id.equals(that.id);
     }
 
@@ -73,12 +72,12 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "UserAddress{" +
                 "id=" + id +
                 ",userId='" + userId + "'" +
-                ",userAddress='" + userAddress + "'" +
-                ",cost='" + cost + "'" +
-                ",createtime='" + createtime + "'" +
+                ",address='" + address + "'" +
+                ",isdefault='" + isdefault + "'" +
+                ",remark='" + remark + "'" +
                 '}';
     }
 

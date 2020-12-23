@@ -1,38 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.wares.commodity.dao.RegisterInfoMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wares.commodity.mapper.RegisterInfoMapper">
   <resultMap id="BaseResultMap" type="cn.wares.commodity.entity.RegisterInfo">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="register_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="register_time" javaType="java.util.Date" jdbcType="DATE" />
-    </constructor>
+    <result column="id" property="id" />
+    <result column="register_name" property="registerName" />
+    <result column="register_time" property="registerTime" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, register_name, register_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from register_info
-    where id = #{id,jdbcType=INTEGER}
+
+  <!-- 表字段 -->
+  <sql id="baseColumns">
+         t.id
+        , t.register_name
+        , t.register_time
+        </sql>
+
+  <!-- 查询全部 -->
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumns" />
+    FROM register_info t
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from register_info
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.wares.commodity.entity.RegisterInfo">
-    insert into register_info (id, register_name, register_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{registerName,jdbcType=VARCHAR}, #{registerTime,jdbcType=DATE}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.wares.commodity.entity.RegisterInfo">
-    insert into register_info
+
+  <!-- 根据主键获取单条记录 -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+    <include refid="baseColumns" />
+    FROM register_info t
+    WHERE id = #{id}
+  </select>
+
+  <!-- 插入全部字段 -->
+  <insert id="insert" parameterType="cn.wares.commodity.entity.RegisterInfo"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO register_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+      register_name,
+      register_time,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      #{registerName},
+      #{registerTime},
+    </trim>
+  </insert>
+
+  <!-- 插入不为NULL的字段 -->
+  <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.RegisterInfo"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO register_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
       <if test="registerName != null">
         register_name,
       </if>
@@ -40,34 +58,48 @@
         register_time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="registerName != null" >
+        #{registerName},
       </if>
-      <if test="registerName != null">
-        #{registerName,jdbcType=VARCHAR},
-      </if>
-      <if test="registerTime != null">
-        #{registerTime,jdbcType=DATE},
+      <if test="registerTime != null" >
+        #{registerTime},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.wares.commodity.entity.RegisterInfo">
-    update register_info
+
+  <!-- 更新,更新全部字段 -->
+  <update id="update" parameterType="cn.wares.commodity.entity.RegisterInfo">
+    UPDATE register_info
     <set>
-      <if test="registerName != null">
-        register_name = #{registerName,jdbcType=VARCHAR},
+      register_name=#{registerName},
+      register_time=#{registerTime},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+
+  <!-- 更新不为NULL的字段 -->
+  <update id="updateIgnoreNull" parameterType="cn.wares.commodity.entity.RegisterInfo">
+    UPDATE register_info
+    <set>
+      <if test="registerName != null" >
+        register_name=#{registerName},
       </if>
-      <if test="registerTime != null">
-        register_time = #{registerTime,jdbcType=DATE},
+      <if test="registerTime != null" >
+        register_time=#{registerTime},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.wares.commodity.entity.RegisterInfo">
-    update register_info
-    set register_name = #{registerName,jdbcType=VARCHAR},
-      register_time = #{registerTime,jdbcType=DATE}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
+  <!-- 根据主键删除记录 -->
+  <delete id="delete" parameterType="cn.wares.commodity.entity.RegisterInfo">
+		UPDATE register_info
+		SET is_deleted=1
+		WHERE id = #{id}
+	</delete>
+
+
 </mapper>

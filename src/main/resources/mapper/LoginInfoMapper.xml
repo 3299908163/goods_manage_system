@@ -1,38 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.wares.commodity.dao.LoginInfoMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wares.commodity.mapper.LoginInfoMapper">
   <resultMap id="BaseResultMap" type="cn.wares.commodity.entity.LoginInfo">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="login_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="login_date" javaType="java.util.Date" jdbcType="DATE" />
-    </constructor>
+    <result column="id" property="id" />
+    <result column="login_name" property="loginName" />
+    <result column="login_date" property="loginDate" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, login_name, login_date
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from login_info
-    where id = #{id,jdbcType=INTEGER}
+
+  <!-- 表字段 -->
+  <sql id="baseColumns">
+         t.id
+        , t.login_name
+        , t.login_date
+        </sql>
+
+  <!-- 查询全部 -->
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumns" />
+    FROM login_info t
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from login_info
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.wares.commodity.entity.LoginInfo">
-    insert into login_info (id, login_name, login_date
-      )
-    values (#{id,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{loginDate,jdbcType=DATE}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.wares.commodity.entity.LoginInfo">
-    insert into login_info
+
+  <!-- 根据主键获取单条记录 -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+    <include refid="baseColumns" />
+    FROM login_info t
+    WHERE id = #{id}
+  </select>
+
+  <!-- 插入全部字段 -->
+  <insert id="insert" parameterType="cn.wares.commodity.entity.LoginInfo"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO login_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+      login_name,
+      login_date,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      #{loginName},
+      #{loginDate},
+    </trim>
+  </insert>
+
+  <!-- 插入不为NULL的字段 -->
+  <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.LoginInfo"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO login_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
       <if test="loginName != null">
         login_name,
       </if>
@@ -40,34 +58,48 @@
         login_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="loginName != null" >
+        #{loginName},
       </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="loginDate != null">
-        #{loginDate,jdbcType=DATE},
+      <if test="loginDate != null" >
+        #{loginDate},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.wares.commodity.entity.LoginInfo">
-    update login_info
+
+  <!-- 更新,更新全部字段 -->
+  <update id="update" parameterType="cn.wares.commodity.entity.LoginInfo">
+    UPDATE login_info
     <set>
-      <if test="loginName != null">
-        login_name = #{loginName,jdbcType=VARCHAR},
+      login_name=#{loginName},
+      login_date=#{loginDate},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+
+  <!-- 更新不为NULL的字段 -->
+  <update id="updateIgnoreNull" parameterType="cn.wares.commodity.entity.LoginInfo">
+    UPDATE login_info
+    <set>
+      <if test="loginName != null" >
+        login_name=#{loginName},
       </if>
-      <if test="loginDate != null">
-        login_date = #{loginDate,jdbcType=DATE},
+      <if test="loginDate != null" >
+        login_date=#{loginDate},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.wares.commodity.entity.LoginInfo">
-    update login_info
-    set login_name = #{loginName,jdbcType=VARCHAR},
-      login_date = #{loginDate,jdbcType=DATE}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
+  <!-- 根据主键删除记录 -->
+  <delete id="delete" parameterType="cn.wares.commodity.entity.LoginInfo">
+		UPDATE login_info
+		SET is_deleted=1
+		WHERE id = #{id}
+	</delete>
+
+
 </mapper>

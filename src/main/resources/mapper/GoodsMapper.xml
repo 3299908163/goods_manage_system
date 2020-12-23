@@ -1,50 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.wares.commodity.dao.GoodsMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wares.commodity.mapper.GoodsMapper">
   <resultMap id="BaseResultMap" type="cn.wares.commodity.entity.Goods">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="goods_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="goods_image" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="price" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="goods_type1" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="goods_type2" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="goods_type3" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="stock" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="is_delete" javaType="java.lang.Integer" jdbcType="INTEGER" />
-    </constructor>
+    <result column="id" property="id" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="user_id" property="userId" />
+    <result column="price" property="price" />
+    <result column="goods_type1" property="goodsType1" />
+    <result column="goods_type2" property="goodsType2" />
+    <result column="goods_type3" property="goodsType3" />
+    <result column="stock" property="stock" />
+    <result column="is_delete" property="isDelete" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, goods_name, goods_image, user_id, price, goods_type1, goods_type2, goods_type3, 
-    stock, is_delete
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from goods
-    where id = #{id,jdbcType=INTEGER}
+
+  <!-- 表字段 -->
+  <sql id="baseColumns">
+         t.id
+        , t.goods_name
+        , t.goods_image
+        , t.user_id
+        , t.price
+        , t.goods_type1
+        , t.goods_type2
+        , t.goods_type3
+        , t.stock
+        , t.is_delete
+        </sql>
+
+  <!-- 查询全部 -->
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumns" />
+    FROM goods t
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from goods
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.wares.commodity.entity.Goods">
-    insert into goods (id, goods_name, goods_image, 
-      user_id, price, goods_type1, 
-      goods_type2, goods_type3, stock, 
-      is_delete)
-    values (#{id,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsImage,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{goodsType1,jdbcType=INTEGER}, 
-      #{goodsType2,jdbcType=INTEGER}, #{goodsType3,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.wares.commodity.entity.Goods">
-    insert into goods
+
+  <!-- 根据主键获取单条记录 -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+    <include refid="baseColumns" />
+    FROM goods t
+    WHERE id = #{id}
+  </select>
+
+  <!-- 插入全部字段 -->
+  <insert id="insert" parameterType="cn.wares.commodity.entity.Goods"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+      goods_name,
+      goods_image,
+      user_id,
+      price,
+      goods_type1,
+      goods_type2,
+      goods_type3,
+      stock,
+      is_delete,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      #{goodsName},
+      #{goodsImage},
+      #{userId},
+      #{price},
+      #{goodsType1},
+      #{goodsType2},
+      #{goodsType3},
+      #{stock},
+      #{isDelete},
+    </trim>
+  </insert>
+
+  <!-- 插入不为NULL的字段 -->
+  <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.Goods"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
       <if test="goodsName != null">
         goods_name,
       </if>
@@ -73,83 +107,97 @@
         is_delete,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null" >
+        #{goodsName},
       </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
+      <if test="goodsImage != null" >
+        #{goodsImage},
       </if>
-      <if test="goodsImage != null">
-        #{goodsImage,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="price != null" >
+        #{price},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DOUBLE},
+      <if test="goodsType1 != null" >
+        #{goodsType1},
       </if>
-      <if test="goodsType1 != null">
-        #{goodsType1,jdbcType=INTEGER},
+      <if test="goodsType2 != null" >
+        #{goodsType2},
       </if>
-      <if test="goodsType2 != null">
-        #{goodsType2,jdbcType=INTEGER},
+      <if test="goodsType3 != null" >
+        #{goodsType3},
       </if>
-      <if test="goodsType3 != null">
-        #{goodsType3,jdbcType=INTEGER},
+      <if test="stock != null" >
+        #{stock},
       </if>
-      <if test="stock != null">
-        #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=INTEGER},
+      <if test="isDelete != null" >
+        #{isDelete},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.wares.commodity.entity.Goods">
-    update goods
+
+  <!-- 更新,更新全部字段 -->
+  <update id="update" parameterType="cn.wares.commodity.entity.Goods">
+    UPDATE goods
     <set>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_name=#{goodsName},
+      goods_image=#{goodsImage},
+      user_id=#{userId},
+      price=#{price},
+      goods_type1=#{goodsType1},
+      goods_type2=#{goodsType2},
+      goods_type3=#{goodsType3},
+      stock=#{stock},
+      is_delete=#{isDelete},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+
+  <!-- 更新不为NULL的字段 -->
+  <update id="updateIgnoreNull" parameterType="cn.wares.commodity.entity.Goods">
+    UPDATE goods
+    <set>
+      <if test="goodsName != null" >
+        goods_name=#{goodsName},
       </if>
-      <if test="goodsImage != null">
-        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      <if test="goodsImage != null" >
+        goods_image=#{goodsImage},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="userId != null" >
+        user_id=#{userId},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DOUBLE},
+      <if test="price != null" >
+        price=#{price},
       </if>
-      <if test="goodsType1 != null">
-        goods_type1 = #{goodsType1,jdbcType=INTEGER},
+      <if test="goodsType1 != null" >
+        goods_type1=#{goodsType1},
       </if>
-      <if test="goodsType2 != null">
-        goods_type2 = #{goodsType2,jdbcType=INTEGER},
+      <if test="goodsType2 != null" >
+        goods_type2=#{goodsType2},
       </if>
-      <if test="goodsType3 != null">
-        goods_type3 = #{goodsType3,jdbcType=INTEGER},
+      <if test="goodsType3 != null" >
+        goods_type3=#{goodsType3},
       </if>
-      <if test="stock != null">
-        stock = #{stock,jdbcType=INTEGER},
+      <if test="stock != null" >
+        stock=#{stock},
       </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=INTEGER},
+      <if test="isDelete != null" >
+        is_delete=#{isDelete},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.wares.commodity.entity.Goods">
-    update goods
-    set goods_name = #{goodsName,jdbcType=VARCHAR},
-      goods_image = #{goodsImage,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      price = #{price,jdbcType=DOUBLE},
-      goods_type1 = #{goodsType1,jdbcType=INTEGER},
-      goods_type2 = #{goodsType2,jdbcType=INTEGER},
-      goods_type3 = #{goodsType3,jdbcType=INTEGER},
-      stock = #{stock,jdbcType=INTEGER},
-      is_delete = #{isDelete,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
+  <!-- 根据主键删除记录 -->
+  <delete id="delete" parameterType="cn.wares.commodity.entity.Goods">
+		UPDATE goods
+		SET is_deleted=1
+		WHERE id = #{id}
+	</delete>
+
+
 </mapper>

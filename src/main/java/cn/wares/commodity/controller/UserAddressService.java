@@ -1,4 +1,4 @@
-package cn.wares.commodity.service;
+package cn.wares.commodity.controller;
 
 import cn.wares.commodity.entity.UserAddress;
 import cn.wares.commodity.mapper.UserAddressMapper;

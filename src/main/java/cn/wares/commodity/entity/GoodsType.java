@@ -1,57 +1,73 @@
 package cn.wares.commodity.entity;
 
+
 /**
- * 商品类别表
+ * 商品类型表
  */
 public class GoodsType {
+    /** id */
     private Integer id;
-
+    /** 商品类型名称 */
     private String goodstypeName;
-
+    /** 商品类型等级 */
     private Integer level;
-
+    /** 父类id */
     private Integer parentId;
-
-    public GoodsType(Integer id, String goodstypeName, Integer level, Integer parentId) {
-        this.id = id;
-        this.goodstypeName = goodstypeName;
-        this.level = level;
-        this.parentId = parentId;
-    }
-
-    public GoodsType() {
-        super();
-    }
-
-    public Integer getId() {
-        return id;
-    }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getGoodstypeName() {
-        return goodstypeName;
+    public Integer getId() {
+        return this.id;
     }
 
     public void setGoodstypeName(String goodstypeName) {
-        this.goodstypeName = goodstypeName == null ? null : goodstypeName.trim();
+        this.goodstypeName = goodstypeName;
     }
 
-    public Integer getLevel() {
-        return level;
+    public String getGoodstypeName() {
+        return this.goodstypeName;
     }
 
     public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Integer getLevel() {
+        return this.level;
     }
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
+    public Integer getParentId() {
+        return this.parentId;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) {return false;}
+        GoodsType that = (GoodsType) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "GoodsType{" +
+                "id=" + id +
+                ",goodstypeName='" + goodstypeName + "'" +
+                ",level='" + level + "'" +
+                ",parentId='" + parentId + "'" +
+                '}';
+    }
+
 }

@@ -6,43 +6,58 @@ import java.util.Date;
  * 登陆信息表
  */
 public class LoginInfo {
+    /** id */
     private Integer id;
-
+    /** 登陆的用户名 */
     private String loginName;
-
+    /** 登陆时间 */
     private Date loginDate;
-
-    public LoginInfo(Integer id, String loginName, Date loginDate) {
-        this.id = id;
-        this.loginName = loginName;
-        this.loginDate = loginDate;
-    }
-
-    public LoginInfo() {
-        super();
-    }
-
-    public Integer getId() {
-        return id;
-    }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public Integer getId() {
+        return this.id;
     }
 
     public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
+        this.loginName = loginName;
     }
 
-    public Date getLoginDate() {
-        return loginDate;
+    public String getLoginName() {
+        return this.loginName;
     }
 
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
     }
+
+    public Date getLoginDate() {
+        return this.loginDate;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) {return false;}
+        LoginInfo that = (LoginInfo) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "LoginInfo{" +
+                "id=" + id +
+                ",loginName='" + loginName + "'" +
+                ",loginDate='" + loginDate + "'" +
+                '}';
+    }
+
 }

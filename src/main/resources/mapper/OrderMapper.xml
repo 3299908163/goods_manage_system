@@ -1,40 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.wares.commodity.dao.OrderMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wares.commodity.mapper.OrderMapper">
   <resultMap id="BaseResultMap" type="cn.wares.commodity.entity.Order">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_address" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="cost" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
+    <result column="id" property="id" />
+    <result column="user_id" property="userId" />
+    <result column="user_address" property="userAddress" />
+    <result column="cost" property="cost" />
+    <result column="createtime" property="createtime" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, user_address, cost, createtime
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order
-    where id = #{id,jdbcType=INTEGER}
+
+  <!-- 表字段 -->
+  <sql id="baseColumns">
+         t.id
+        , t.user_id
+        , t.user_address
+        , t.cost
+        , t.createtime
+        </sql>
+
+  <!-- 查询全部 -->
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumns" />
+    FROM order t
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.wares.commodity.entity.Order">
-    insert into order (id, user_id, user_address, 
-      cost, createtime)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userAddress,jdbcType=VARCHAR}, 
-      #{cost,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.wares.commodity.entity.Order">
-    insert into order
+
+  <!-- 根据主键获取单条记录 -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+    <include refid="baseColumns" />
+    FROM order t
+    WHERE id = #{id}
+  </select>
+
+  <!-- 插入全部字段 -->
+  <insert id="insert" parameterType="cn.wares.commodity.entity.Order"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO order
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+      user_id,
+      user_address,
+      cost,
+      createtime,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      #{userId},
+      #{userAddress},
+      #{cost},
+      #{createtime},
+    </trim>
+  </insert>
+
+  <!-- 插入不为NULL的字段 -->
+  <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.Order"
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  >
+    INSERT INTO order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
       <if test="userId != null">
         user_id,
       </if>
@@ -48,48 +72,62 @@
         createtime,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+      <if test="userId != null" >
+        #{userId},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="userAddress != null" >
+        #{userAddress},
       </if>
-      <if test="userAddress != null">
-        #{userAddress,jdbcType=VARCHAR},
+      <if test="cost != null" >
+        #{cost},
       </if>
-      <if test="cost != null">
-        #{cost,jdbcType=DOUBLE},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createtime != null" >
+        #{createtime},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.wares.commodity.entity.Order">
-    update order
+
+  <!-- 更新,更新全部字段 -->
+  <update id="update" parameterType="cn.wares.commodity.entity.Order">
+    UPDATE order
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      user_id=#{userId},
+      user_address=#{userAddress},
+      cost=#{cost},
+      createtime=#{createtime},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+
+  <!-- 更新不为NULL的字段 -->
+  <update id="updateIgnoreNull" parameterType="cn.wares.commodity.entity.Order">
+    UPDATE order
+    <set>
+      <if test="userId != null" >
+        user_id=#{userId},
       </if>
-      <if test="userAddress != null">
-        user_address = #{userAddress,jdbcType=VARCHAR},
+      <if test="userAddress != null" >
+        user_address=#{userAddress},
       </if>
-      <if test="cost != null">
-        cost = #{cost,jdbcType=DOUBLE},
+      <if test="cost != null" >
+        cost=#{cost},
       </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createtime != null" >
+        createtime=#{createtime},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.wares.commodity.entity.Order">
-    update order
-    set user_id = #{userId,jdbcType=INTEGER},
-      user_address = #{userAddress,jdbcType=VARCHAR},
-      cost = #{cost,jdbcType=DOUBLE},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
+  <!-- 根据主键删除记录 -->
+  <delete id="delete" parameterType="cn.wares.commodity.entity.Order">
+		UPDATE order
+		SET is_deleted=1
+		WHERE id = #{id}
+	</delete>
+
+
 </mapper>

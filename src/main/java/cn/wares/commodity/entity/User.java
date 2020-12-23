@@ -1,101 +1,117 @@
 package cn.wares.commodity.entity;
 
+
 /**
  * 用户表
  */
 public class User {
+    /** 用户id */
     private Integer id;
-
+    /** 用户姓名 */
     private String userName;
-
+    /** 用户性别（0男，1女） */
     private Integer userSex;
-
+    /** 用户身份证 */
     private String userIdentity;
-
+    /** 手机（注册字段） */
     private String phone;
-
+    /** 密码 */
     private String password;
-
+    /** 角色 */
     private Integer roleId;
-
+    /** 是否删除（0未删除，1删除） */
     private Integer isDelete;
-
-    public User(Integer id, String userName, Integer userSex, String userIdentity, String phone, String password, Integer roleId, Integer isDelete) {
-        this.id = id;
-        this.userName = userName;
-        this.userSex = userSex;
-        this.userIdentity = userIdentity;
-        this.phone = phone;
-        this.password = password;
-        this.roleId = roleId;
-        this.isDelete = isDelete;
-    }
-
-    public User() {
-        super();
-    }
-
-    public Integer getId() {
-        return id;
-    }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public Integer getId() {
+        return this.id;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
-    public Integer getUserSex() {
-        return userSex;
+    public String getUserName() {
+        return this.userName;
     }
 
     public void setUserSex(Integer userSex) {
         this.userSex = userSex;
     }
 
-    public String getUserIdentity() {
-        return userIdentity;
+    public Integer getUserSex() {
+        return this.userSex;
     }
 
     public void setUserIdentity(String userIdentity) {
-        this.userIdentity = userIdentity == null ? null : userIdentity.trim();
+        this.userIdentity = userIdentity;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getUserIdentity() {
+        return this.userIdentity;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPhone() {
+        return this.phone;
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public String getPassword() {
+        return this.password;
     }
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getRoleId() {
+        return this.roleId;
     }
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
     }
+
+    public Integer getIsDelete() {
+        return this.isDelete;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) {return false;}
+        User that = (User) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ",userName='" + userName + "'" +
+                ",userSex='" + userSex + "'" +
+                ",userIdentity='" + userIdentity + "'" +
+                ",phone='" + phone + "'" +
+                ",password='" + password + "'" +
+                ",roleId='" + roleId + "'" +
+                ",isDelete='" + isDelete + "'" +
+                '}';
+    }
+
 }

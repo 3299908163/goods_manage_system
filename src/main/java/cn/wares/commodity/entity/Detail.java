@@ -2,7 +2,7 @@ package cn.wares.commodity.entity;
 
 
 /**
- * 订单详解表
+ * 订单详解表2
  */
 public class Detail {
 	/** 主键 */

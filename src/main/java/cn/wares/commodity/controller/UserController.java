@@ -2,14 +2,14 @@ package cn.wares.commodity.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import cn.wares.commodity.entity.User;
 import cn.wares.commodity.service.UserService;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -43,8 +43,8 @@ public class UserController {
      * @param user 新增的记录
      * @return 返回影响行数
      */
-    @RequestMapping("insert")
-    public int insert(@RequestBody User user) {
+    @RequestMapping(value = "insert",method = RequestMethod.POST)
+    public int insert(User user) {
         return userService.insertIgnoreNull(user);
     }    
       
@@ -55,7 +55,7 @@ public class UserController {
      * @return 返回影响行数
      */
     @RequestMapping("update")
-    public int update(@RequestBody User user) {
+    public int update(User user) {
         return userService.updateIgnoreNull(user);
     }
     
@@ -66,7 +66,7 @@ public class UserController {
      * @return 返回影响行数
      */
     @RequestMapping("delete")
-    public int delete(@RequestBody User user) {
+    public int delete(User user) {
         return userService.delete(user);
     }
     

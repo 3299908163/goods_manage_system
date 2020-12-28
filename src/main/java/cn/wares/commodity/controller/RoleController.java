@@ -46,7 +46,7 @@ public class RoleController {
      * @return 返回影响行数
      */
     @RequestMapping("insert")
-    public int insert(@RequestBody Role role) {
+    public int insert(Role role) {
         return roleService.insertIgnoreNull(role);
     }    
       

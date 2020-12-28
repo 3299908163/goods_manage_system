@@ -27,23 +27,9 @@
     WHERE id = #{id}
   </select>
 
-  <!-- 插入全部字段 -->
-  <insert id="insert" parameterType="cn.wares.commodity.entity.Role"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
-  >
-    INSERT INTO role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      role_name,
-    </trim>
-    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      #{roleName},
-    </trim>
-  </insert>
-
   <!-- 插入不为NULL的字段 -->
   <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.Role"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
-  >
+          keyProperty="id" keyColumn="id" useGeneratedKeys="true">
     INSERT INTO role
     <trim prefix="(" suffix=")" suffixOverrides=",">
 

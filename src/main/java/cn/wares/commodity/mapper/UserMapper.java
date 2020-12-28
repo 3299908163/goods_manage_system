@@ -46,14 +46,6 @@ public interface UserMapper {
     User getById(Integer id);
 
     /**
-     * 新增，插入所有字段
-     *
-     * @param user 新增的记录
-     * @return 返回影响行数
-     */
-    int insert(User user);
-
-    /**
      * 新增，忽略null字段
      *
      * @param user 新增的记录

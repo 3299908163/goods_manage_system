@@ -34,16 +34,6 @@ public class RoleService {
     }
 	
     /**
-     * 新增，插入所有字段
-     *
-     * @param role 新增的记录
-     * @return 返回影响行数
-     */
-    public int insert(Role role) {
-    	return roleMapper.insert(role);
-    }
-	
-    /**
      * 新增，忽略null字段
      *
      * @param role 新增的记录

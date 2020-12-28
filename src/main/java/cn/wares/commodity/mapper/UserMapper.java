@@ -1,8 +1,12 @@
 package cn.wares.commodity.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import cn.wares.commodity.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
@@ -14,6 +18,24 @@ public interface UserMapper {
      */
     List<User> listAll();
 
+    /**
+     * 分页查询用户
+     * @param page
+     * @param phone
+     * @param userName
+     * @param roleId
+     * @return
+     */
+    IPage<User> selectPageUser(Page page, @Param("phone")String phone,@Param("userName")String userName,@Param("roleId")int roleId);
+
+    /**
+     * 返回查询总数
+     * @param phone
+     * @param userName
+     * @param roleId
+     * @return
+     */
+    int count(@Param("phone")String phone,@Param("userName")String userName,@Param("roleId")int roleId);
 
     /**
      * 根据主键查询

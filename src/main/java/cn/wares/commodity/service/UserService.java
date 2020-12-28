@@ -2,6 +2,8 @@ package cn.wares.commodity.service;
 
 import cn.wares.commodity.entity.User;
 import cn.wares.commodity.mapper.UserMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,21 @@ public class UserService {
     	return userMapper.listAll();
     }
 
+    public IPage<User> getPageUser(Page page,String phone,String userName,int roleId){
+        IPage<User> pageUser = userMapper.selectPageUser(page,phone,userName,roleId);
+        for(User pageInfo:pageUser.getRecords()){
+            if("0".equals(pageInfo.getUserSex())){
+                pageInfo.setUserSex("男");
+            }else {
+                pageInfo.setUserSex("女");
+            }
+        }
+        return pageUser;
+    }
+
+    public int getUserCount (String phone,String userName,int roleId){
+        return userMapper.count(phone,userName,roleId);
+    }
 
     /**
      * 根据主键查询

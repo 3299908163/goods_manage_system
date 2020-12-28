@@ -124,8 +124,7 @@
 
   <!-- 根据主键删除记录 -->
   <delete id="delete" parameterType="cn.wares.commodity.entity.Order">
-		UPDATE order
-		SET is_deleted=1
+		delete from order
 		WHERE id = #{id}
 	</delete>
 

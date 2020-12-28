@@ -93,13 +93,4 @@
     WHERE id = #{id}
   </update>
 
-
-  <!-- 根据主键删除记录 -->
-  <delete id="delete" parameterType="cn.wares.commodity.entity.RegisterInfo">
-		UPDATE register_info
-		SET is_deleted=1
-		WHERE id = #{id}
-	</delete>
-
-
 </mapper>

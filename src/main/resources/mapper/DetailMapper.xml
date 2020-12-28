@@ -33,25 +33,6 @@
     WHERE id = #{id}
   </select>
 
-  <!-- 插入全部字段 -->
-  <insert id="insert" parameterType="cn.wares.commodity.entity.Detail"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
-  >
-    INSERT INTO detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      order_id,
-      goods_id,
-      number,
-      price,
-    </trim>
-    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      #{orderId},
-      #{goodsId},
-      #{number},
-      #{price},
-    </trim>
-  </insert>
-
   <!-- 插入不为NULL的字段 -->
   <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.Detail"
           keyProperty="id" keyColumn="id" useGeneratedKeys="true"
@@ -88,18 +69,6 @@
     </trim>
   </insert>
 
-  <!-- 更新,更新全部字段 -->
-  <update id="update" parameterType="cn.wares.commodity.entity.Detail">
-    UPDATE detail
-    <set>
-      order_id=#{orderId},
-      goods_id=#{goodsId},
-      number=#{number},
-      price=#{price},
-    </set>
-    WHERE id = #{id}
-  </update>
-
 
   <!-- 更新不为NULL的字段 -->
   <update id="updateIgnoreNull" parameterType="cn.wares.commodity.entity.Detail">
@@ -120,14 +89,5 @@
     </set>
     WHERE id = #{id}
   </update>
-
-
-  <!-- 根据主键删除记录 -->
-  <delete id="delete" parameterType="cn.wares.commodity.entity.Detail">
-		UPDATE detail
-		SET is_deleted=1
-		WHERE id = #{id}
-	</delete>
-
 
 </mapper>

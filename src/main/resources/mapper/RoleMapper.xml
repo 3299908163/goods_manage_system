@@ -82,8 +82,7 @@
 
   <!-- 根据主键删除记录 -->
   <delete id="delete" parameterType="cn.wares.commodity.entity.Role">
-		UPDATE role
-		SET is_deleted=1
+		delete from role
 		WHERE id = #{id}
 	</delete>
 

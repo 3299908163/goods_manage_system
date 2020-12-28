@@ -24,28 +24,12 @@ public interface GoodsMapper {
     Goods getById(Integer id);
 
     /**
-     * 新增，插入所有字段
-     *
-     * @param goods 新增的记录
-     * @return 返回影响行数
-     */
-    int insert(Goods goods);
-
-    /**
      * 新增，忽略null字段
      *
      * @param goods 新增的记录
      * @return 返回影响行数
      */
     int insertIgnoreNull(Goods goods);
-
-    /**
-     * 修改，修改所有字段
-     *
-     * @param goods 修改的记录
-     * @return 返回影响行数
-     */
-    int update(Goods goods);
 
     /**
      * 修改，忽略null字段

@@ -124,8 +124,7 @@
 
   <!-- 根据主键删除记录 -->
   <delete id="delete" parameterType="cn.wares.commodity.entity.UserAddress">
-		UPDATE user_address
-		SET is_deleted=1
+		delete from user_address
 		WHERE id = #{id}
 	</delete>
 

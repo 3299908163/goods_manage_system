@@ -110,10 +110,8 @@
 
   <!-- 根据主键删除记录 -->
   <delete id="delete" parameterType="cn.wares.commodity.entity.GoodsType">
-		UPDATE goods_type
-		SET is_deleted=1
+		delete from goods_type
 		WHERE id = #{id}
 	</delete>
-
 
 </mapper>

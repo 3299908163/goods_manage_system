@@ -34,16 +34,6 @@ public class GoodsService {
     }
 	
     /**
-     * 新增，插入所有字段
-     *
-     * @param goods 新增的记录
-     * @return 返回影响行数
-     */
-    public int insert(Goods goods) {
-    	return goodsMapper.insert(goods);
-    }
-	
-    /**
      * 新增，忽略null字段
      *
      * @param goods 新增的记录
@@ -51,16 +41,6 @@ public class GoodsService {
      */
     public int insertIgnoreNull(Goods goods) {
     	return goodsMapper.insertIgnoreNull(goods);
-    }
-	
-    /**
-     * 修改，修改所有字段
-     *
-     * @param goods 修改的记录
-     * @return 返回影响行数
-     */
-    public int update(Goods goods) {
-    	return goodsMapper.update(goods);
     }
 	
     /**

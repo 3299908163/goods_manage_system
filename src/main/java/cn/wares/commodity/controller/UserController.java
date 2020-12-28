@@ -1,9 +1,14 @@
 package cn.wares.commodity.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import cn.wares.commodity.entity.User;
 import cn.wares.commodity.service.UserService;
@@ -25,6 +30,23 @@ public class UserController {
         return userService.listAll();
     }
 
+    @RequestMapping("/userList")
+    public Object listUser(@RequestParam(required = false) Integer page,
+                           @RequestParam(required = false) Integer limit,
+                           @RequestParam(required = false) int roleId,
+                           @RequestParam(required = false) String userName,
+                           @RequestParam(required = false) String phone){
+        Page<User> ipage = new Page<>(page,limit);
+        IPage<User> pageUser = userService.getPageUser(ipage,phone,userName,roleId);
+        int count = userService.getUserCount(phone,userName,roleId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("code",0);
+        map.put("msg","分页查询成功");
+        map.put("count",count);
+        map.put("data",pageUser.getRecords());
+        return map;
+
+    }
 
     /**
      * 根据主键查询

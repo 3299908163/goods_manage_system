@@ -1,6 +1,8 @@
 package cn.wares.commodity.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 /**
  * 用户表
  */
@@ -10,7 +12,7 @@ public class User {
     /** 用户姓名 */
     private String userName;
     /** 用户性别（0男，1女） */
-    private Integer userSex;
+    private String userSex;
     /** 用户身份证 */
     private String userIdentity;
     /** 手机（注册字段） */
@@ -21,6 +23,9 @@ public class User {
     private Integer roleId;
     /** 是否删除（0未删除，1删除） */
     private Integer isDelete;
+
+    @TableField(exist = false)
+    private Role role;
 
     public void setId(Integer id) {
         this.id = id;
@@ -38,11 +43,11 @@ public class User {
         return this.userName;
     }
 
-    public void setUserSex(Integer userSex) {
+    public void setUserSex(String userSex) {
         this.userSex = userSex;
     }
 
-    public Integer getUserSex() {
+    public String getUserSex() {
         return this.userSex;
     }
 
@@ -98,6 +103,14 @@ public class User {
     @Override
     public int hashCode() {
         return java.util.Objects.hash(id);
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

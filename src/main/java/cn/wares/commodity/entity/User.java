@@ -24,6 +24,8 @@ public class User {
     /** 是否删除（0未删除，1删除） */
     private Integer isDelete;
 
+    private String tokenId;
+
     @TableField(exist = false)
     private Role role;
 
@@ -91,6 +93,29 @@ public class User {
         return this.isDelete;
     }
 
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userSex='" + userSex + '\'' +
+                ", userIdentity='" + userIdentity + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", roleId=" + roleId +
+                ", isDelete=" + isDelete +
+                ", tokenId='" + tokenId + '\'' +
+                ", role=" + role +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -111,20 +136,6 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ",userName='" + userName + "'" +
-                ",userSex='" + userSex + "'" +
-                ",userIdentity='" + userIdentity + "'" +
-                ",phone='" + phone + "'" +
-                ",password='" + password + "'" +
-                ",roleId='" + roleId + "'" +
-                ",isDelete='" + isDelete + "'" +
-                '}';
     }
 
 }

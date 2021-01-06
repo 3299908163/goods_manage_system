@@ -42,12 +42,12 @@ public class RegisterInfoController {
     /**
      * 新增，忽略null字段
      *
-     * @param registerInfo 新增的记录
+     * @param registerName 新增的记录
      * @return 返回影响行数
      */
     @RequestMapping("insert")
-    public int insert(@RequestBody RegisterInfo registerInfo) {
-        return registerInfoService.insertIgnoreNull(registerInfo);
+    public int insert(String registerName) {
+        return registerInfoService.insert(registerName);
     }    
       
     /**

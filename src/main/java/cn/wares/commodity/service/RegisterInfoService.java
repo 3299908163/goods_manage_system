@@ -32,25 +32,14 @@ public class RegisterInfoService {
     public RegisterInfo getById(Integer id) {
     	return registerInfoMapper.getById(id);
     }
-	
-    /**
-     * 新增，插入所有字段
-     *
-     * @param registerInfo 新增的记录
-     * @return 返回影响行数
-     */
-    public int insert(RegisterInfo registerInfo) {
-    	return registerInfoMapper.insert(registerInfo);
-    }
-	
+
     /**
      * 新增，忽略null字段
      *
-     * @param registerInfo 新增的记录
      * @return 返回影响行数
      */
-    public int insertIgnoreNull(RegisterInfo registerInfo) {
-    	return registerInfoMapper.insertIgnoreNull(registerInfo);
+    public int insert(String registerName) {
+    	return registerInfoMapper.insert(registerName);
     }
 	
     /**

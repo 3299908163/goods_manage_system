@@ -42,12 +42,12 @@ public class LoginInfoController {
     /**
      * 新增，忽略null字段
      *
-     * @param loginInfo 新增的记录
+     * @param loginName 新增的记录
      * @return 返回影响行数
      */
     @RequestMapping("insert")
-    public int insert(@RequestBody LoginInfo loginInfo) {
-        return loginInfoService.insertIgnoreNull(loginInfo);
+    public int insert(String loginName) {
+        return loginInfoService.insertIgnoreNull(loginName);
     }    
       
     /**

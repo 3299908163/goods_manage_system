@@ -29,6 +29,21 @@ public interface UserMapper {
     IPage<User> selectPageUser(Page page, @Param("phone")String phone,@Param("userName")String userName,@Param("roleId")int roleId);
 
     /**
+     * 根据电话和密码查询用户
+     * @param phone
+     * @param password
+     * @return
+     */
+    User selectUserByPhoneAndPassword(@Param("phone")String phone,@Param("password")String password);
+
+    /**
+     * 根据电话查询用户
+     * @param phone
+     * @return
+     */
+    User selectUserByPhone(@Param("phone")String phone);
+
+    /**
      * 返回查询总数
      * @param phone
      * @param userName
@@ -52,14 +67,6 @@ public interface UserMapper {
      * @return 返回影响行数
      */
     int insertIgnoreNull(User user);
-
-    /**
-     * 修改，修改所有字段
-     *
-     * @param user 修改的记录
-     * @return 返回影响行数
-     */
-    int update(User user);
 
     /**
      * 修改，忽略null字段

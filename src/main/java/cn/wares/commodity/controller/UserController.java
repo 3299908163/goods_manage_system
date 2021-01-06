@@ -3,6 +3,9 @@ package cn.wares.commodity.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.wares.commodity.service.LoginInfoService;
+import cn.wares.commodity.service.RegisterInfoService;
+import cn.wares.commodity.utils.ReturnResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TokenManager tokenManager;
+
+    @Autowired
+    private RegisterInfoService registerInfoService;
+
+    @Autowired
+    private LoginInfoService loginInfoService;
+
     /**
      * 查询所有记录
      *
@@ -30,10 +42,19 @@ public class UserController {
         return userService.listAll();
     }
 
+    /**
+     * 分页查询用户
+     * @param page
+     * @param limit
+     * @param roleId
+     * @param userName
+     * @param phone
+     * @return
+     */
     @RequestMapping("/userList")
     public Object listUser(@RequestParam(required = false) Integer page,
                            @RequestParam(required = false) Integer limit,
-                           @RequestParam(required = false) int roleId,
+                           @RequestParam(required = false) Integer roleId,
                            @RequestParam(required = false) String userName,
                            @RequestParam(required = false) String phone){
         Page<User> ipage = new Page<>(page,limit);
@@ -46,6 +67,34 @@ public class UserController {
         map.put("data",pageUser.getRecords());
         return map;
 
+    }
+
+    /**
+     * 登陆方法
+     * @param phone
+     * @param password
+     * @return
+     */
+    @RequestMapping("/login")
+    public Map<String,Object> login(@RequestParam String phone,
+                                    @RequestParam String password){
+        User user =userService.getUserByPhoneAndPassword(phone,password);
+        Map<String,Object> map = null;
+        if(null==user){
+            if(null==userService.getUserByPhone(phone)){
+//                为空返回5001，电话不存在
+                map = ReturnResult.returnFail(null,null,5001);
+            }else{
+//                电话存在，密码不存在返回5002
+                map = ReturnResult.returnFail(null,null,5002);
+            }
+        }else {
+            loginInfoService.insertIgnoreNull(user.getUserName());
+            user.setTokenId(tokenManager.createToken(user.getId()));
+            userService.updateIgnoreNull(user);
+            map = ReturnResult.returnSuccess(null,user.getTokenId());
+        }
+        return map;
     }
 
     /**
@@ -66,8 +115,19 @@ public class UserController {
      * @return 返回影响行数
      */
     @RequestMapping(value = "insert",method = RequestMethod.POST)
-    public int insert(User user) {
-        return userService.insertIgnoreNull(user);
+    public Object insert(User user) {
+        User user1 = userService.getUserByPhone(user.getPhone());
+        if (user1 !=null){      //不为空表示已经存在
+            return ReturnResult.returnFail("用户已存在",null,"600");
+        }
+        int i = userService.insertIgnoreNull(user);
+        if(i>0){
+            registerInfoService.insert(user.getUserName());
+            return ReturnResult.returnSuccess("注册成功",user.getUserName());
+        }
+        else {
+            return ReturnResult.returnFail("注册失败",null,500);
+        }
     }    
       
     /**

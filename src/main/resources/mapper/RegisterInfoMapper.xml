@@ -29,41 +29,18 @@
     WHERE id = #{id}
   </select>
 
-  <!-- 插入全部字段 -->
-  <insert id="insert" parameterType="cn.wares.commodity.entity.RegisterInfo"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
-  >
-    INSERT INTO register_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      register_name,
-      register_time,
-    </trim>
-    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      #{registerName},
-      #{registerTime},
-    </trim>
-  </insert>
-
   <!-- 插入不为NULL的字段 -->
-  <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.RegisterInfo"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+  <insert id="insert" parameterType="cn.wares.commodity.entity.RegisterInfo"
   >
     INSERT INTO register_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-
       <if test="registerName != null">
         register_name,
-      </if>
-      <if test="registerTime != null">
-        register_time,
       </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
       <if test="registerName != null" >
         #{registerName},
-      </if>
-      <if test="registerTime != null" >
-        #{registerTime},
       </if>
     </trim>
   </insert>

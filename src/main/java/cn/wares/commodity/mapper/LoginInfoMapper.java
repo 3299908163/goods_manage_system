@@ -24,20 +24,12 @@ public interface LoginInfoMapper {
     LoginInfo getById(Integer id);
 
     /**
-     * 新增，插入所有字段
-     *
-     * @param loginInfo 新增的记录
-     * @return 返回影响行数
-     */
-    int insert(LoginInfo loginInfo);
-
-    /**
      * 新增，忽略null字段
      *
-     * @param loginInfo 新增的记录
+     * @param loginName 新增的记录
      * @return 返回影响行数
      */
-    int insertIgnoreNull(LoginInfo loginInfo);
+    int insertIgnoreNull(String loginName);
 
     /**
      * 修改，修改所有字段

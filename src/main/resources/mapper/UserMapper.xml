@@ -10,6 +10,7 @@
     <result column="password" property="password" />
     <result column="role_id" property="roleId" />
     <result column="is_delete" property="isDelete" />
+    <result column="token_id" property="tokenId"/>
     <association property="role" javaType="cn.wares.commodity.entity.Role">
       <id property="id" column="id"/>
       <result property="roleName" column="role_name"/>
@@ -26,6 +27,7 @@
         , t.password
         , t.role_id
         , t.is_delete
+        , t.token_id
         </sql>
   <sql id="user_role">
         t.id
@@ -41,8 +43,9 @@
   <!-- 查询全部 -->
   <select id="listAll" resultMap="BaseResultMap">
     SELECT
-    <include refid="baseColumns" />
+    <include refid="user_role" />
     FROM user t
+    left join role r on t.role_id=r.id
     where is_delete=0
   </select>
 
@@ -61,6 +64,35 @@
       </if>
       <if test="roleId!=null and roleId>0">
       and t.role_id=#{roleId}
+      </if>
+      and is_delete=0
+    </where>
+  </select>
+  <!--根据电话和密码查询用户-->
+  <select id="selectUserByPhoneAndPassword" resultMap="BaseResultMap">
+    select
+    <include refid="user_role"/>
+    from user t
+    left join role r on t.role_id=r.id
+    <where>
+      <if test="phone!=null and ''!=phone">
+        and t.phone=#{phone}
+      </if>
+      <if test="password!=null and ''!=password">
+        and t.password=#{password}
+      </if>
+      and is_delete=0
+    </where>
+  </select>
+  <!--根据电话查询用户-->
+  <select id="selectUserByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="user_role"/>
+    from user t
+    left join role r on t.role_id=r.id
+    <where>
+      <if test="phone!=null and ''!=phone">
+        and t.phone=#{phone}
       </if>
       and is_delete=0
     </where>
@@ -172,6 +204,9 @@
       </if>
       <if test="isDelete != null" >
         is_delete=#{isDelete},
+      </if>
+      <if test="tokenId != null" >
+        token_id=#{tokenId},
       </if>
     </set>
     WHERE id = #{id} and is_delete=0

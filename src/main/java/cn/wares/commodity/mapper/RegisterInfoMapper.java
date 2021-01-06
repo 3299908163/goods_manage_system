@@ -24,20 +24,12 @@ public interface RegisterInfoMapper {
     RegisterInfo getById(Integer id);
 
     /**
-     * 新增，插入所有字段
-     *
-     * @param registerInfo 新增的记录
-     * @return 返回影响行数
-     */
-    int insert(RegisterInfo registerInfo);
-
-    /**
      * 新增，忽略null字段
      *
-     * @param registerInfo 新增的记录
+     * @param registerName 新增的记录
      * @return 返回影响行数
      */
-    int insertIgnoreNull(RegisterInfo registerInfo);
+    int insert(String registerName);
 
     /**
      * 修改，修改所有字段

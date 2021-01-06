@@ -32,25 +32,15 @@ public class LoginInfoService {
     public LoginInfo getById(Integer id) {
     	return loginInfoMapper.getById(id);
     }
-	
-    /**
-     * 新增，插入所有字段
-     *
-     * @param loginInfo 新增的记录
-     * @return 返回影响行数
-     */
-    public int insert(LoginInfo loginInfo) {
-    	return loginInfoMapper.insert(loginInfo);
-    }
-	
+
     /**
      * 新增，忽略null字段
      *
-     * @param loginInfo 新增的记录
+     * @param loginName 新增的记录
      * @return 返回影响行数
      */
-    public int insertIgnoreNull(LoginInfo loginInfo) {
-    	return loginInfoMapper.insertIgnoreNull(loginInfo);
+    public int insertIgnoreNull(String loginName) {
+    	return loginInfoMapper.insertIgnoreNull(loginName);
     }
 	
     /**

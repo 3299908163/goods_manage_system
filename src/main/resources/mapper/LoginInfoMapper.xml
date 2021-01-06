@@ -29,24 +29,8 @@
     WHERE id = #{id}
   </select>
 
-  <!-- 插入全部字段 -->
-  <insert id="insert" parameterType="cn.wares.commodity.entity.LoginInfo"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
-  >
-    INSERT INTO login_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      login_name,
-      login_date,
-    </trim>
-    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
-      #{loginName},
-      #{loginDate},
-    </trim>
-  </insert>
-
   <!-- 插入不为NULL的字段 -->
   <insert id="insertIgnoreNull" parameterType="cn.wares.commodity.entity.LoginInfo"
-          keyProperty="id" keyColumn="id" useGeneratedKeys="true"
   >
     INSERT INTO login_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -54,16 +38,10 @@
       <if test="loginName != null">
         login_name,
       </if>
-      <if test="loginDate != null">
-        login_date,
-      </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
       <if test="loginName != null" >
         #{loginName},
-      </if>
-      <if test="loginDate != null" >
-        #{loginDate},
       </if>
     </trim>
   </insert>
